@@ -30,7 +30,6 @@
   when: ansible_pkg_mgr == 'apt'
 
 - name: Attach RHSM subscription / repo
-  tags: notest
   when: (vault_rhsm_repo_id)
   become: true
   block:
