@@ -1,0 +1,37 @@
+- name: Test vault version
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - ansible.builtin.include_tasks: tasks/test_vault_version.yml
+      vars: 
+        CI_VAULT_VERSION: "{{ item.CI_VAULT_VERSION }}"
+        vault_enterprise_premium: "{{ item.vault_enterprise_premium }}"
+        vault_enterprise_premium_hsm: "{{ item.vault_enterprise_premium_hsm }}"
+        assertion: "{{ item.assert }}"
+      with_items:
+        - CI_VAULT_VERSION: "1.2.3"
+          vault_enterprise_premium: false
+          vault_enterprise_premium_hsm: false
+          assert: "1.2.3"
+        - CI_VAULT_VERSION: "1.2.4"
+          vault_enterprise_premium: true
+          vault_enterprise_premium_hsm: false
+          assert: "1.2.4+prem"
+        - CI_VAULT_VERSION: "1.2.5"
+          vault_enterprise_premium: false
+          vault_enterprise_premium_hsm: false
+          assert: "1.2.5"
+        - CI_VAULT_VERSION: "1.2.6"
+          vault_enterprise_premium: true
+          vault_enterprise_premium_hsm: true
+          assert: "1.2.6+prem.hsm"
+        - CI_VAULT_VERSION: "1.2.7"
+          vault_enterprise_premium: false
+          vault_enterprise_premium_hsm: false
+          vault_version_repo_suffix: ""
+          assert: "1.2.7"
+        - CI_VAULT_VERSION: "1.2.8"
+          vault_enterprise_premium: false
+          vault_enterprise_premium_hsm: false
+          vault_version_repo_suffix: "-1"
+          assert: "1.2.8"

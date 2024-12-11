@@ -1,0 +1,20 @@
+---
+name: Custom Tests
+
+on:
+  push:
+    tags_ignore:
+      - '*'
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    container: geerlingguy/docker-ubuntu2404-ansible:latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - run: |
+          for d in tests/*; do
+          (test -d $d && cd $d && pwd && find && ansible-playbook test.yml)
+          done

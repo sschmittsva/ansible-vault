@@ -1,0 +1,8 @@
+- name: Include default vars
+  ansible.builtin.include_vars:
+    file: ../../defaults/main.yml
+
+- name: "Test version logic {{ assertion }}"
+  ansible.builtin.assert:
+    that: vault_version == assertion
+    fail_msg: "vault_version: {{ vault_version }}; expected: {{ assertion }}"

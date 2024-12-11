@@ -11,4 +11,4 @@ exclude_paths:
   - molecule
   - molecule/_tests/
   - examples/
-  - tests/
+  - tests
