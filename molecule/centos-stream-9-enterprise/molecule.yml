@@ -21,9 +21,12 @@ provisioner:
   inventory:
     host_vars:
       centos-stream-9:
+        vault_disable_api_health_check: true
         vault_enterprise: true
+        vault_install_hashi_repo: false
       centos-stream-9_repo:
+        vault_disable_api_health_check: true
+        vault_enterprise: true
         vault_install_hashi_repo: true
         vault_bin_path: /usr/bin
         vault_group: vault
-        vault_enterprise: true
